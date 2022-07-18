@@ -10,7 +10,10 @@ int main(int argc, char **argv) {
 
 	//Allocated Memory
 	if (argc == 2) {
-		printf("Allocated 1048576 bytes of memory \n");
+		printf("Allocated %s bytes of memory \n", argv[1]);
+	} else {
+		printf("Error\n");
+		return 1;
 	}
 
 	return 0;
