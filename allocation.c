@@ -6,11 +6,20 @@
 //https://github.com/keyfive5/Assignment-4
 
 //functions
-void request();
-void release();
+int request(char pid[2], int size, char flag);
+int release(char pid[3]);
 void status();
+void compact();
 void help_menu();
 void unrecognized();
+
+//Structure to represent a process
+typedef struct process
+{
+    char pid[3];
+    int size;
+    int index;
+} Process;
 
 int main(int argc, char **argv) {
 
@@ -32,11 +41,21 @@ int main(int argc, char **argv) {
 
 			//Change Request to fix
 			} else if (!strcmp(cmd,"RQ")) {
-				request();
+				char pid[3],flag;
+   				int size;
+
+				scanf("%s %d %c", pid, &size, &flag);
+
+				request(pid, size, flag);
 			} else if (!strcmp(cmd,"RL")) {
-				release();
+				char pid[3];
+				scanf("%s", pid);
+
+				release(pid);
 			} else if (!strcmp(cmd,"Status")) {
 				status();
+			} else if (!strcmp(cmd,"C")) {
+				compact();
 			} else {
 			    unrecognized();
 			}
@@ -55,20 +74,39 @@ int main(int argc, char **argv) {
 
 //Request
 //Fix to actually request
-void request() {
-	printf("Successfully allocated __ to process __\n");
+int request(char pid[3], int size, char flag) {
+	//Error handdling
+	if (pid[2] < 0){
+		printf("Error: invalid process number!\n");
+		return 1;
+	} if (size <= 0){
+		printf("Error: invild size!\n");
+		return 1;
+	} if (flag != 'F' && flag != 'B' && flag != 'W'){
+		printf("Error: invalid flag type!\n");
+		return 1;	
+	}
+
+	printf("Successfully allocated %d to process %s\n", size, pid);
+	return 0;
 }
 
 //Release
 //Fix to actually release
-void release() {
-	printf("releasing memory for process __\n");
-	printf("Successfully released memory for process __\n");
+int release(char pid[3]) {
+	printf("releasing memory for process %s\n",pid);
+	printf("Successfully released memory for process %s\n",pid);
+
+	return 0;
 }
 
 //Finish to actually do the status stuff
 void status() {
 	printf("insert status here\n");
+}
+
+void compact() {
+	printf("Compaction Process is sucessful\n");
 }
 
 // lists functions that the program recognizes
@@ -82,6 +120,7 @@ void help_menu(){
     printf("\t\t\"W\" - First worst algorithm\n");
     printf("\t\"RL <process number/name>\" - Releases the memory of the specified process\n");
     printf("\t\"Status\" - Reports the status of memory entered\n");
+    printf("\t\"C\" - Compacts all holes in memory into one hole\n");
     printf("\t\"Exit\" - Exits the program\n");
     printf("\n");
 }
