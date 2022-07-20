@@ -102,7 +102,13 @@ int release(char pid[3]) {
 
 //Finish to actually do the status stuff
 void status() {
-	printf("insert status here\n");
+	printf("Partitions [Allocate memory = __]\n");
+	//add for loop for each process here
+	printf("Address [_:_] Process PX\n");
+	printf("\n");
+	printf("Holes [Free memory = __]\n");
+	//add for loop for each hole
+	printf("Address[_:_]\n");
 }
 
 void compact() {
