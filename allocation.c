@@ -6,7 +6,7 @@
 //https://github.com/keyfive5/Assignment-4
 
 //functions
-int request(char pid[2], int size, char flag);
+int request(char pid[3], int size, char flag);
 int release(char pid[3]);
 void status();
 void compact();
@@ -21,11 +21,15 @@ typedef struct process
     int index;
 } Process;
 
+int hole_indices[10];
+Process allocations[10];
+int n = 0;
+
 int main(int argc, char **argv) {
 
 	if (argc == 2) {
 
-		//Allocate the memory here
+		hole_indices[0] = 0;
 
 		printf("Allocated %s bytes of memory\n", argv[1]);
 
@@ -87,6 +91,20 @@ int request(char pid[3], int size, char flag) {
 		return 1;	
 	}
 
+	//intialize a new process
+	Process *new = malloc(sizeof(Process));
+
+	strcpy(new->pid,pid);
+	new->size = size;
+	new->index = hole_indices[0];
+
+	//add process to array of process
+	allocations[n] = *new;
+	n++;
+
+	//update the hole size
+	hole_indices[0] = size - 1;
+
 	printf("Successfully allocated %d to process %s\n", size, pid);
 	return 0;
 }
@@ -103,8 +121,10 @@ int release(char pid[3]) {
 //Finish to actually do the status stuff
 void status() {
 	printf("Partitions [Allocate memory = __]\n");
-	//add for loop for each process here
-	printf("Address [_:_] Process PX\n");
+
+	for(int i = 0; i < n;i++){
+		printf("Address [%d:%d] Process %s\n",allocations[i].index,allocations[i].size - 1,allocations[i].pid);
+	}
 	printf("\n");
 	printf("Holes [Free memory = __]\n");
 	//add for loop for each hole
