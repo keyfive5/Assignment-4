@@ -1,18 +1,18 @@
 # Memory Allocator CP386 Assignment 4
 Memory Allocation
 
-#Make file
+# Make file
 The program is compiled in ubuntu use the makefile.
 
 Command: 
 ```
 make run
 ```
-#Screenshots
+# Screenshots
 
-#Individual Contribution
+# Individual Contribution
 
-#Features
+# Features
 
 - Request function:
 
