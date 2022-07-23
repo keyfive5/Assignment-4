@@ -25,7 +25,13 @@ make run
 # Screenshots
 ![Help menu](./Screenshots/Screenshot_1.png)
 
-# Individual Contribution
+![Request fucntion](./Screenshots/Screenshot_2.png)
+
+![Release function](./Screenshots/Screenshot_3.png)
+
+![Status](./Screenshots/Screenshot_4.png)
+
+![Compaction command](./Screenshots/Screenshot_5.png)
 
 # About Developers
 
