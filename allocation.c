@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 //Github: keyfive5
 //Github: Wrenen
 //Make github public
 //https://github.com/keyfive5/Assignment-4
+
+int mem = 0;
 
 //functions
 int request(char pid[3], int size, char flag);
@@ -12,6 +15,8 @@ void status();
 void compact();
 void help_menu();
 void unrecognized();
+
+
 
 //Structure to represent a process
 typedef struct process
@@ -25,9 +30,23 @@ int hole_indices[10];
 Process allocations[10];
 int n = 0;
 
+//Linked List Node
+typedef struct node {
+	Process val;
+	struct node * next;
+} Node;
+
+typedef struct linked_list {
+	Node head;
+} List;
+
+
+
+
 int main(int argc, char **argv) {
 
 	if (argc == 2) {
+
 
 		hole_indices[0] = 0;
 
@@ -84,11 +103,11 @@ int request(char pid[3], int size, char flag) {
 		printf("Error: invalid process number!\n");
 		return 1;
 	} if (size <= 0){
-		printf("Error: invild size!\n");
+		printf("Error: invalid size!\n");
 		return 1;
 	} if (flag != 'F' && flag != 'B' && flag != 'W'){
 		printf("Error: invalid flag type!\n");
-		return 1;	
+		return 1;
 	}
 
 	//intialize a new process
@@ -97,6 +116,9 @@ int request(char pid[3], int size, char flag) {
 	strcpy(new->pid,pid);
 	new->size = size;
 	new->index = hole_indices[0];
+
+	//Update the allocated memory
+	mem += size;
 
 	//add process to array of process
 	allocations[n] = *new;
@@ -112,7 +134,20 @@ int request(char pid[3], int size, char flag) {
 //Release
 //Fix to actually release
 int release(char pid[3]) {
+
 	printf("releasing memory for process %s\n",pid);
+
+	//Scan the array
+	for (int i = 0; i < n; i++) {
+		printf(allocations[i].pid);
+		printf(pid);
+
+		if (strcmp(allocations[i].pid, pid) == 0) {
+			mem -= allocations[i].index;
+		}
+	}
+
+
 	printf("Successfully released memory for process %s\n",pid);
 
 	return 0;
@@ -120,7 +155,7 @@ int release(char pid[3]) {
 
 //Finish to actually do the status stuff
 void status() {
-	printf("Partitions [Allocate memory = __]\n");
+	printf("Partitions [Allocate memory = %d]\n", mem);
 
 	for(int i = 0; i < n;i++){
 		printf("Address [%d:%d] Process %s\n",allocations[i].index,allocations[i].size - 1,allocations[i].pid);
@@ -132,7 +167,7 @@ void status() {
 }
 
 void compact() {
-	printf("Compaction Process is sucessful\n");
+	printf("Compaction Process is successful\n");
 }
 
 // lists functions that the program recognizes
