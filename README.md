@@ -1,5 +1,5 @@
 # Memory Allocator CP386 Assignment 4
-Memory Allocation
+Memory allocation program that simulates the memory allocation processes in  a operating system
 
 # Make file
 The program is compiled in ubuntu use the makefile.
@@ -8,19 +8,24 @@ Command:
 ```
 make run
 ```
-# Screenshots
-
-# Individual Contribution
-
 # Features
 
 - Request function:
+  The Request function takes 3 parameters: a Process id, size required and algorithm flag. It allocates the size in memory for that processs according to the algorithm specified by the user
 
 - Release function:
+  The Release function takes the process id of an existing process in memory and frees that space in memory.
 
 - Status:
+  List all the process in memory, all the holes or free spaces in memory and the total space in memory that is being used
 
 - Holes Compaction:
+  If there are multiple free spaces in memory those spaces are combined in to one when this command is envoked by the user.
+  
+# Screenshots
+![Help menu](./Screenshots/Screenshot_1.png)
+
+# Individual Contribution
 
 # About Developers
 
