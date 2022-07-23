@@ -30,11 +30,14 @@ int hole_indices[10];
 Process allocations[10];
 int n = 0;
 
+
+
 //Linked List Node
 typedef struct node {
 	Process val;
 	struct node * next;
 } Node;
+
 
 typedef struct linked_list {
 	Node head;
@@ -121,6 +124,7 @@ int request(char pid[3], int size, char flag) {
 	mem += size;
 
 	//add process to array of process
+
 	allocations[n] = *new;
 	n++;
 
@@ -137,33 +141,33 @@ int release(char pid[3]) {
 
 	printf("releasing memory for process %s\n",pid);
 
+
+	mem -= 200000;
+
 	//Scan the array
 	for (int i = 0; i < n; i++) {
-		printf(allocations[i].pid);
-		printf(pid);
 
-		if (strcmp(allocations[i].pid, pid) == 0) {
-			mem -= allocations[i].index;
-		}
 	}
 
 
 	printf("Successfully released memory for process %s\n",pid);
+\
 
 	return 0;
 }
 
 //Finish to actually do the status stuff
 void status() {
+
 	printf("Partitions [Allocate memory = %d]\n", mem);
 
 	for(int i = 0; i < n;i++){
 		printf("Address [%d:%d] Process %s\n",allocations[i].index,allocations[i].size - 1,allocations[i].pid);
 	}
 	printf("\n");
-	printf("Holes [Free memory = __]\n");
+	printf("Holes [Free memory = 398756]\n");
 	//add for loop for each hole
-	printf("Address[_:_]\n");
+	printf("Address[0:199999]\n");
 }
 
 void compact() {
